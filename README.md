@@ -75,7 +75,10 @@ In our benchmark, we tested the 4B SDAR model with block size 4 (basic accelerat
 This demonstrates that JetEngine can unlock production-level throughput for SDAR models, making it ideal for both research-scale batch inference and real-world deployment scenarios.
 
 ```bash
-pip install flash-attn --no-build-isolation #Install fa2
+# Install FlashAttention-2
+# Note: for Torch 2.5.x, flash-attn 2.8.x may error on import (e.g. missing
+# `torch._library.triton.set_wrap_triton_enabled`). If you hit that, pin to:
+pip install "flash-attn==2.7.4.post1" --no-build-isolation --no-cache-dir
 git clone https://github.com/JetAstra/SDAR.git
 cd SDAR
 git submodule update --init --recursive

@@ -240,6 +240,12 @@ def parse_args():
     parser.add_argument("--device", type=str, default="cuda",)
     parser.add_argument("--dtype", type=str, default="float16",
                         choices=["float16", "bfloat16"],)
+    return parser.parse_args(), parser
+
+
+if __name__ == "__main__":
+    args, parser = parse_args()
+
     if args.remasking_strategy == "low_confidence_dynamic" and args.confidence_threshold is None:
         parser.error(
             "--confidence_threshold is required when --remasking_strategy=low_confidence_dynamic"
@@ -248,11 +254,6 @@ def parse_args():
         parser.error(
             "--eb_threshold is required when --remasking_strategy=entropy_bounded"
         )
-    return parser.parse_args()
-
-
-if __name__ == "__main__":
-    args = parse_args()
 
     print("Loading model...")
     model = AutoModelForCausalLM.from_pretrained(
